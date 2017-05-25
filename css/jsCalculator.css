@@ -1,0 +1,17 @@
+.row {
+	clear:both;
+}
+
+.container {
+	width: 40%;
+	margin: 0 auto;
+}
+
+.button {
+	float:left;
+	height: 30px;
+	width: 30px;
+	text-align: center;
+	background-color: #CCC;
+	line-height: 30px;
+}

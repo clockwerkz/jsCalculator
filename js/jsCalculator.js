@@ -1,8 +1,11 @@
 var calcButtons = document.querySelectorAll(".button");
 var display = document.getElementById("display");
-var secondDisplay = document.getElementById("accumulative");
+var secondDisplay = document.getElementById("secondDisplay");
 var isOperator = false;
 
+
+
+/*
 calcButtons.forEach(function(button){
 	button.addEventListener("click", function(){
 		var firstNum, secondNum;
@@ -24,4 +27,4 @@ calcButtons.forEach(function(button){
 		}
 		if (val) 
 	});
-});
+});*/

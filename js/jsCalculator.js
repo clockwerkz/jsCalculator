@@ -1,8 +1,41 @@
-var calcButtons = document.querySelectorAll(".button");
+var digits = document.querySelectorAll(".digit");
+var operators = document.querySelector(".operator");
+var decimal = document.querySelector(".dot");
+var eval = document.querySelector(".eval");
 var display = document.getElementById("display");
 var secondDisplay = document.getElementById("secondDisplay");
-var isOperator = false;
+var operatorFunction;
+var firstDigit, secondDigit;
+var total = 0;
 
+digits.forEach(function(button){
+	button.addEventListener("click", function() {
+		val = this.dataset.value;
+		if (!firstDigit) {
+			display.textContent = val;
+			firstDigit = val;
+		} else {
+			secondDigit = val;
+			display.textContent = val;
+			secondDisplay.textContent = firstDigit;
+		}
+	});
+});
+
+operators.addEventListener("click", function(){
+	if (firstDigit){
+		secondDisplay.textContent += firstDigit + " + ";
+		operatorFunction = adding;
+	} 
+});
+
+eval.addEventListener("click", function(){
+	
+});
+
+function adding(num1, num2){
+	return num1 + num2;
+}
 
 
 /*

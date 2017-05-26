@@ -3,8 +3,9 @@ var operators = document.querySelector(".operator");
 var decimal = document.querySelector(".dot");
 var eval = document.querySelector(".eval");
 var display = document.getElementById("display");
-var secondDisplay = document.getElementById("secondDisplay");
+var smallDisplay = document.getElementById("smallDisplay");
 var operatorFunction;
+var operatorAssigned = false;
 var firstDigit, secondDigit;
 var total = 0;
 
@@ -17,20 +18,27 @@ digits.forEach(function(button){
 		} else {
 			secondDigit = val;
 			display.textContent = val;
-			secondDisplay.textContent = firstDigit;
 		}
 	});
 });
 
 operators.addEventListener("click", function(){
-	if (firstDigit){
-		secondDisplay.textContent += firstDigit + " + ";
+	if (firstDigit && !operatorAssigned){
+		smallDisplay.textContent += firstDigit + " + ";
 		operatorFunction = adding;
+		operatorAssigned = true;
 	} 
 });
 
 eval.addEventListener("click", function(){
-	
+	if (firstDigit && secondDigit && operatorFunction) {
+		firstDigit = adding(Number(firstDigit), Number(secondDigit));
+		secondDigit = "";
+		display.textContent = firstDigit;
+		smallDisplay.textContent = "";
+		operatorFunction = "";
+		operatorAssigned = false;
+	}
 });
 
 function adding(num1, num2){
@@ -50,7 +58,7 @@ calcButtons.forEach(function(button){
 				display.textContent = val;
 			} else {
 				if (display.textContent.length === 9){
-					secondDisplay.textContent = "Digit Limit";
+					smallDisplay.textContent = "Digit Limit";
 					display.textContent = 0;
 				} else {
 					secondDisplay.textContent = "";

@@ -24,3 +24,8 @@
 #display {
 	text-align: right;
 }
+
+#smallDisplay {
+	text-align: right;
+	clear: both;
+}

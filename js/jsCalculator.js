@@ -5,39 +5,42 @@ var eval = document.querySelector(".eval");
 var display = document.getElementById("display");
 var smallDisplay = document.getElementById("smallDisplay");
 var operatorFunction;
-var operatorAssigned = false;
-var firstDigit, secondDigit;
-var total = 0;
+var input;
+var total=0;
+var evalPressed = false;
 
 digits.forEach(function(button){
 	button.addEventListener("click", function() {
 		val = this.dataset.value;
-		if (!firstDigit) {
+		if (display.textContent==="0" || operatorFunction || evalPressed) {
+			evalPressed = false;
 			display.textContent = val;
-			firstDigit = val;
 		} else {
-			secondDigit = val;
-			display.textContent = val;
+			display.textContent += val;
 		}
 	});
 });
 
 operators.addEventListener("click", function(){
-	if (firstDigit && !operatorAssigned){
-		smallDisplay.textContent += firstDigit + " + ";
+	input = display.textContent;
+	if (operatorFunction) {
+		total = operatorFunction(total, Number(input));
 		operatorFunction = adding;
-		operatorAssigned = true;
-	} 
+	} else {
+		total = Number(input);
+		operatorFunction = adding;
+	}
+	smallDisplay.textContent += input + " + ";
 });
 
 eval.addEventListener("click", function(){
-	if (firstDigit && secondDigit && operatorFunction) {
-		firstDigit = adding(Number(firstDigit), Number(secondDigit));
-		secondDigit = "";
-		display.textContent = firstDigit;
+	evalPressed = true;
+	input = display.textContent;
+	if (operatorFunction) {
+		total = operatorFunction(total, Number(input));
+		display.textContent = total;
 		smallDisplay.textContent = "";
 		operatorFunction = "";
-		operatorAssigned = false;
 	}
 });
 

@@ -5,11 +5,16 @@ var eval = document.querySelector(".eval");
 var display = document.getElementById("display");
 var smallDisplay = document.getElementById("smallDisplay");
 var operatorFunction;
-var functionPresed = false;
+var functionPressed = false;
 var input;
 var total=0;
 var evalPressed = false;
 
+
+//What if instead of keeping track of functionPressed and evalPressed, 
+//we keep track of whether it's a new number?
+//to start, newNumber is true. Once we press a number in, newNumber becomes false
+//if we press eval or an operation, newNumber becomes true again.
 digits.forEach(function(button){
 	button.addEventListener("click", function() {
 		val = this.dataset.value;
@@ -22,11 +27,18 @@ digits.forEach(function(button){
 	});
 });
 
+decimal.addEventListener("click", function(){
+	if (!display.textContent.includes(".")){
+		display.textContent += ".";
+	}
+});
+
 operators.addEventListener("click", function(){
 	functionPressed = true;
 	input = display.textContent;
 	if (operatorFunction) {
 		total = operatorFunction(total, Number(input));
+		display.textContent = total;
 		operatorFunction = adding;
 	} else {
 		total = Number(input);
@@ -50,27 +62,3 @@ function adding(num1, num2){
 	return num1 + num2;
 }
 
-
-/*
-calcButtons.forEach(function(button){
-	button.addEventListener("click", function(){
-		var firstNum, secondNum;
-		var val = this.dataset.value;
-		if ((Number(val) >= 0) && (Number(val) <= 9)){
-			//First check and see if the number displayed is 0. If it is, then replace 0 with value.
-			//If not zero, then append the value to existing number.
-			if (display.textContent === "0"){
-				display.textContent = val;
-			} else {
-				if (display.textContent.length === 9){
-					smallDisplay.textContent = "Digit Limit";
-					display.textContent = 0;
-				} else {
-					secondDisplay.textContent = "";
-					display.textContent += val;
-				}
-			}
-		}
-		if (val) 
-	});
-});*/

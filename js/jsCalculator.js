@@ -5,6 +5,7 @@ var eval = document.querySelector(".eval");
 var display = document.getElementById("display");
 var smallDisplay = document.getElementById("smallDisplay");
 var operatorFunction;
+var functionPresed = false;
 var input;
 var total=0;
 var evalPressed = false;
@@ -12,8 +13,8 @@ var evalPressed = false;
 digits.forEach(function(button){
 	button.addEventListener("click", function() {
 		val = this.dataset.value;
-		if (display.textContent==="0" || operatorFunction || evalPressed) {
-			evalPressed = false;
+		if (display.textContent==="0" || functionPressed || evalPressed) {
+			functionPressed = evalPressed = false;
 			display.textContent = val;
 		} else {
 			display.textContent += val;
@@ -22,6 +23,7 @@ digits.forEach(function(button){
 });
 
 operators.addEventListener("click", function(){
+	functionPressed = true;
 	input = display.textContent;
 	if (operatorFunction) {
 		total = operatorFunction(total, Number(input));

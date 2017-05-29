@@ -15,6 +15,7 @@ var evalPressed = false;
 //we keep track of whether it's a new number?
 //to start, newNumber is true. Once we press a number in, newNumber becomes false
 //if we press eval or an operation, newNumber becomes true again.
+//inputingNumber variable.
 digits.forEach(function(button){
 	button.addEventListener("click", function() {
 		val = this.dataset.value;

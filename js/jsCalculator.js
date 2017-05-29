@@ -3,6 +3,7 @@ var operators = document.querySelector(".operator");
 var decimal = document.querySelector(".dot");
 var eval = document.querySelector(".eval");
 var display = document.getElementById("display");
+var subtraction = document.getElementById("subtraction");
 var smallDisplay = document.getElementById("smallDisplay");
 var operatorFunction;
 var newNumber = true;
@@ -39,6 +40,20 @@ operators.addEventListener("click", function(){
 		operatorFunction = adding;
 	}
 	smallDisplay.textContent += input + " + ";
+	newNumber = true;
+});
+
+subtraction.addEventListener("click", function(){
+	input = display.textContent;
+	if (operatorFunction && !newNumber) {
+		total = operatorFunction(total, Number(input));
+		display.textContent = total;
+		operatorFunction = subtracting;
+	} else {
+		total = Number(input);
+		operatorFunction = subtracting;
+	}
+	smallDisplay.textContent += input + " - ";
 	newNumber = true;
 });
 

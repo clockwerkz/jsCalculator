@@ -1,9 +1,11 @@
 var digits = document.querySelectorAll(".digit");
-var operators = document.querySelector(".operator");
 var decimal = document.querySelector(".dot");
 var eval = document.querySelector(".eval");
 var display = document.getElementById("display");
+var addition = document.getElementById("addition");
 var subtraction = document.getElementById("subtraction");
+var multiplication = document.getElementById("multiplication");
+var division = document.getElementById("division");
 var smallDisplay = document.getElementById("smallDisplay");
 var operatorFunction;
 var newNumber = true;
@@ -29,16 +31,15 @@ decimal.addEventListener("click", function(){
 	}
 });
 
-operators.addEventListener("click", function(){
+addition.addEventListener("click", function(){
 	input = display.textContent;
 	if (operatorFunction && !newNumber) {
 		total = operatorFunction(total, Number(input));
 		display.textContent = total;
-		operatorFunction = adding;
 	} else {
 		total = Number(input);
-		operatorFunction = adding;
 	}
+	operatorFunction = adding;
 	smallDisplay.textContent += input + " + ";
 	newNumber = true;
 });
@@ -48,12 +49,37 @@ subtraction.addEventListener("click", function(){
 	if (operatorFunction && !newNumber) {
 		total = operatorFunction(total, Number(input));
 		display.textContent = total;
-		operatorFunction = subtracting;
 	} else {
 		total = Number(input);
-		operatorFunction = subtracting;
 	}
+	operatorFunction = subtracting;
 	smallDisplay.textContent += input + " - ";
+	newNumber = true;
+});
+
+multiplication.addEventListener("click", function(){
+	input = display.textContent;
+	if (operatorFunction && !newNumber) {
+		total = operatorFunction(total, Number(input));
+		display.textContent = total;
+	} else {
+		total = Number(input);
+	}
+	operatorFunction = multiplying;
+	smallDisplay.textContent += input + " x ";
+	newNumber = true;
+});
+
+division.addEventListener("click", function(){
+	input = display.textContent;
+	if (operatorFunction && !newNumber) {
+		total = operatorFunction(total, Number(input));
+		display.textContent = total;
+	} else {
+		total = Number(input);
+	}
+	operatorFunction = dividing;
+	smallDisplay.textContent += input + " / ";
 	newNumber = true;
 });
 

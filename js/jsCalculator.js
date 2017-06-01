@@ -31,6 +31,17 @@ decimal.addEventListener("click", function(){
 	}
 });
 
+function processOperator() {
+	input = display.textContent;
+	if (operatorFunction && !newNumber) {
+		total = operatorFunction(total, Number(input));
+		display.textContent = total;
+	} else {
+		total = Number(input);
+	}
+	newNumber = true;
+}
+
 addition.addEventListener("click", function(){
 	input = display.textContent;
 	if (operatorFunction && !newNumber) {

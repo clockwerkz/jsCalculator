@@ -27,7 +27,12 @@ digits.forEach(function(button){
 
 decimal.addEventListener("click", function(){
 	if (!display.textContent.includes(".")){
+		if (newNumber){
+			display.textContent = "0."
+			newNumber = false;
+		} else {
 		display.textContent += ".";
+		}
 	}
 });
 

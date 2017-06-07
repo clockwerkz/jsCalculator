@@ -100,8 +100,8 @@ division.addEventListener("click", function(){
 });
 
 eval.addEventListener("click", function(){
-	if (operatorFunction) {
-		input = (newNumber) ? input : display.textContent;
+	if (operatorFunction && !newNumber) {
+		input = display.textContent;
 		total = operatorFunction(total, Number(input));
 		display.textContent = total;
 		smallDisplay.textContent = "";

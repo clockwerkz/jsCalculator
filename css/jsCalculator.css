@@ -21,6 +21,14 @@
 	line-height: 30px;
 }
 
+.button:hover{
+	background-color: #ABABAB;
+}
+
+.button:active{
+	background-color: #EEE;
+}
+
 #display {
 	text-align: right;
 }

@@ -12,15 +12,28 @@ var newNumber = true;
 var input;
 var total=0;
 
+var screens = {
+	display :  document.getElementById("display"),
+	smallDisplay : document.getElementById("smallDisplay"),
+
+	newDisplay : function (val){
+		display.textContent = val;
+	},
+
+	UpdateDisplay : function(val){
+		display.textContent += val;
+	}
+};
+
 
 digits.forEach(function(button){
 	button.addEventListener("click", function() {
 		val = this.dataset.value;
 		if (newNumber) {
 			newNumber = false;
-			display.textContent = val;
+			screens.newDisplay(val);
 		} else {
-			display.textContent += val;
+			screens.UpdateDisplay(val);
 		}
 	});
 });
@@ -28,10 +41,10 @@ digits.forEach(function(button){
 decimal.addEventListener("click", function(){
 	if (!display.textContent.includes(".")){
 		if (newNumber){
-			display.textContent = "0."
+			screens.newDisplay("0.");
 			newNumber = false;
 		} else {
-		display.textContent += ".";
+		screens.UpdateDisplay(".");
 		}
 	}
 });

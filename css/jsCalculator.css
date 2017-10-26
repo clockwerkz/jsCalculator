@@ -4,6 +4,7 @@
 
 .container {
 	width: 60%;
+	max-width: 360px;
 	margin: 0 auto;
 	background-color: #DDD;
 }
@@ -64,10 +65,7 @@
 	}
 }
 
-  @media (min-width: 501px) and (max-width: 800px){
-	.container {
-		width: 60%;
-	}
+
 }
 
  

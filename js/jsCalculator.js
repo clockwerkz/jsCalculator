@@ -111,6 +111,7 @@ var calculatorFunction = {
 			screens.newDisplay(this.total);
 			screens.clearSmallDisplay();
 			this.newNumber = true;
+			this.operatorFunction = "";
 		}
 	},
 

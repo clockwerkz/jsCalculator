@@ -1,141 +1,114 @@
-var digits = document.querySelectorAll(".digit");
-var decimal = document.querySelector(".dot");
-var eval = document.querySelector(".eval");
-var display = document.getElementById("display");
-var addition = document.getElementById("addition");
-var subtraction = document.getElementById("subtraction");
-var multiplication = document.getElementById("multiplication");
-var division = document.getElementById("division");
-var smallDisplay = document.getElementById("smallDisplay");
-var operatorFunction;
-var newNumber = true;
-var input;
-var total=0;
 
+//Controller
+var calculator = document.querySelector(".calculator");
+calculator.addEventListener("click", (e) => {
+	let btn = e.target;
+
+	if (btn.classList.contains("digit")) {
+		calculatorFunction.digitInput(e.target.dataset.value);
+	}
+
+	if (btn.classList.contains("operator")) {
+		calculatorFunction.operatorPressed(e.target.dataset.value);
+	}
+
+	if (btn.classList.contains("dot")) {
+		calculatorFunction.decimal();
+	}
+	
+	if (btn.classList.contains("eval")) {
+		calculatorFunction.evaluator();
+	}
+});
+
+//View
 var screens = {
 	display :  document.getElementById("display"),
 	smallDisplay : document.getElementById("smallDisplay"),
 
-	newDisplay : function (val){
+	newDisplay : function(val) {
 		display.textContent = val;
 	},
 
-	UpdateDisplay : function(val){
+	UpdateDisplay : function (val) {
 		display.textContent += val;
 	}
 };
 
+//Model
+var calculatorFunction = {
+	newNumber : true,
+	operatorFunction:"",
+	input:"",
+	total:0,
 
-digits.forEach(function(button){
-	button.addEventListener("click", function() {
-		val = this.dataset.value;
-		if (newNumber) {
-			newNumber = false;
-			screens.newDisplay(val);
+	digitInput : function (digit) {
+		if (this.newNumber) {
+			this.newNumber = false;
+			screens.newDisplay(digit);
 		} else {
-			screens.UpdateDisplay(val);
+			screens.UpdateDisplay(digit);
 		}
-	});
-});
+	},
 
-decimal.addEventListener("click", function(){
-	if (!display.textContent.includes(".")){
-		if (newNumber){
-			screens.newDisplay("0.");
-			newNumber = false;
+	decimal: function () {
+		if (!display.textContent.includes(".")){
+			if (this.newNumber){
+				screens.newDisplay("0.");
+				this.newNumber = false;
+			} else {
+			screens.UpdateDisplay(".");
+			}
+		}
+	},
+
+	evaluator: function () {
+		if (this.operatorFunction && !this.newNumber) {
+			this.input = display.textContent;
+			this.total = this.operatorFunction(this.total, Number(this.input));
+			display.textContent = this.total;
+			smallDisplay.textContent = "";
+			this.newNumber = true;
+		}
+	},
+
+	operatorPressed: function (operator) {
+		this.input = display.textContent;
+		if (this.operatorFunction && !this.newNumber) {
+			this.total = this.operatorFunction(this.total, Number(this.input));
+			display.textContent = this.total;
 		} else {
-		screens.UpdateDisplay(".");
+			this.total = Number(this.input);
 		}
+		smallDisplay.textContent += this.input + " " + operator + " ";
+		this.newNumber = true;
+		this.operatorFunction = this.setOperator(operator);
+	},
+
+	setOperator: function (value) {
+		let newOperator;
+		switch (value) {
+			case "+":
+				newOperator = (num1, num2)=> {
+					return num1 + num2;
+				}
+				break;
+			case "-":
+				newOperator = (num1, num2)=> {
+					return num1 - num2;
+				}
+				break;
+			case "*":
+				newOperator = (num1, num2)=> {
+					return num1 * num2;
+				}
+				break;
+			case "/":
+				newOperator = (num1, num2)=> {
+					return num1 / num2;
+				}
+				break;
+		}
+		return newOperator;
 	}
-});
-
-function processOperator() {
-	input = display.textContent;
-	if (operatorFunction && !newNumber) {
-		total = operatorFunction(total, Number(input));
-		display.textContent = total;
-	} else {
-		total = Number(input);
-	}
-	newNumber = true;
-}
-
-addition.addEventListener("click", function(){
-	input = display.textContent;
-	if (operatorFunction && !newNumber) {
-		total = operatorFunction(total, Number(input));
-		display.textContent = total;
-	} else {
-		total = Number(input);
-	}
-	operatorFunction = adding;
-	smallDisplay.textContent += input + " + ";
-	newNumber = true;
-});
-
-subtraction.addEventListener("click", function(){
-	input = display.textContent;
-	if (operatorFunction && !newNumber) {
-		total = operatorFunction(total, Number(input));
-		display.textContent = total;
-	} else {
-		total = Number(input);
-	}
-	operatorFunction = subtracting;
-	smallDisplay.textContent += input + " - ";
-	newNumber = true;
-});
-
-multiplication.addEventListener("click", function(){
-	input = display.textContent;
-	if (operatorFunction && !newNumber) {
-		total = operatorFunction(total, Number(input));
-		display.textContent = total;
-	} else {
-		total = Number(input);
-	}
-	operatorFunction = multiplying;
-	smallDisplay.textContent += input + " x ";
-	newNumber = true;
-});
-
-division.addEventListener("click", function(){
-	input = display.textContent;
-	if (operatorFunction && !newNumber) {
-		total = operatorFunction(total, Number(input));
-		display.textContent = total;
-	} else {
-		total = Number(input);
-	}
-	operatorFunction = dividing;
-	smallDisplay.textContent += input + " / ";
-	newNumber = true;
-});
-
-eval.addEventListener("click", function(){
-	if (operatorFunction && !newNumber) {
-		input = display.textContent;
-		total = operatorFunction(total, Number(input));
-		display.textContent = total;
-		smallDisplay.textContent = "";
-		newNumber = true;
-	}
-});
-
-
-function adding(num1, num2){
-	return num1 + num2;
-}
-
-function subtracting (num1, num2) {
-	return num1 - num2;
-}
-
-function multiplying (num1, num2) {
-	return num1 * num2;
-}
-
-function dividing (num1, num2) {
-	return num1 / num2;
-}
-
+};

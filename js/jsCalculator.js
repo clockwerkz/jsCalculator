@@ -104,7 +104,6 @@ var calculatorFunction = {
 	},
 
 	evaluator: function () {
-		//if we have two values ready to compute and an operator:
 		if (this.operatorFunction && !this.newNumber) {
 			this.input = screens.displayValue();
 			this.total = this.operatorFunction(Number(this.total) , Number(this.input));
@@ -114,7 +113,6 @@ var calculatorFunction = {
 			this.operatorFunction = "";
 		}
 	},
-
 	operatorPressed: function (operator) {
 		this.input = screens.displayValue();
 		if (this.operatorFunction && !this.newNumber) {
@@ -123,7 +121,9 @@ var calculatorFunction = {
 		} else {
 			this.total = Number(this.input);
 		}
-		screens.updateSmallDisplay(this.input + " " + operator + " ");
+		if (!this.newNumber){
+			screens.updateSmallDisplay(this.input + " " + operator + " ");
+		}
 		this.newNumber = true;
 		this.operatorFunction = this.setOperator(operator);
 	},
